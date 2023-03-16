@@ -31,7 +31,9 @@ Optional features for extra marks:
 
 Add statistics at the end of each level that is successfully completed or when the player runs out of lives indicating how well they did. For example, the number of correct/incorrect answer and total overall accuracy.
 Add two additional difficulty levels to the game that allow for inputting and matching individual words and not just individual characters:
+
 Level #3: Individual words with their equivalent Morse code provided.
+
 Level #4: Individual words without their equivalent Morse code provided.
 
 
