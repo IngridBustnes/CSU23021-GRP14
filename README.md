@@ -1,3 +1,5 @@
+![A02 Image](https://user-images.githubusercontent.com/91458920/225872537-d8e3db8b-ddfd-4d5d-a648-d2d98993b9c4.png)
+
 # Introduction
 
 This group project is designed to be as much about how you work together in a group as it is about the coding assignment that you must complete. While the bulk of the grading scheme will be focussed on meeting the coding requirements set out in the next section, marks will also be awarded for: how well the project was run; good usage of Git as a group; the quality of the final project report and the application demonstration video.
