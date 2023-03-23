@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+#include <string.h>
 
 #include "pico/stdlib.h"
 #include "hardware/pio.h"
@@ -9,6 +11,35 @@
 #define IS_RGBW true        // Will use RGBW format
 #define NUM_PIXELS 1        // There is 1 WS2812 device in the chain
 #define WS2812_PIN 28       // The GPIO pin that the WS2812 connected to
+
+int number_of_wins = 0; // Number of wins the player has achieved
+int player_lives = 0; // Number of lives the player has
+int level_selected = 2; // Level selected by player
+int correct_ans = 0; // Number of correct answers the player has entered
+
+// Code for part 7.
+    // Declare watchdog functions
+    void watchdog_update();
+
+    void watchdog_enable(uint32_t delay_ms, bool pause_on_debug);
+
+//
+
+// Code for part 6.
+
+    // Print screen congratulating the player
+    void end_screen() {
+        printf("\nCONGRATULATIONS!! ^.^ \n You've won the game!"); 
+    }
+
+    // Check if 5 correct answers have been entered by player. If yes progress to next level. Otherwise return to level 1/Welcome
+    // This function will be part of level 1 - level 2 code 
+    if (correct_ans == 5) {
+        level_selected = 2;
+        printf("YOU ARE NOW MOVING TO LEVEL X!");
+    }
+
+//
 
 
 /**
@@ -60,6 +91,32 @@ int main() {
     PIO pio = pio0;
     uint offset = pio_add_program(pio, &ws2812_program);
     ws2812_program_init(pio, 0, offset, WS2812_PIN, 800000, IS_RGBW);
+
+    // Code for part 7.
+        watchdog_enable(0x7fffff, 1);                                           // Enable the watchdog timer 
+
+                                                                                // After level selected and letter to be converted printed
+
+        watchdog_update();                                                      // Update the watchdog timer	
+        
+                                                                                // Call asm function 
+        
+        watchdog_update();
+
+        if (watchdog_caused_reboot()) {                                         // Check if watchdog timer caused a reboot 
+            printf("TIMEOUT!");
+        }
+
+        if(player_lives == 0) {                                                 // If player has no lives left, end game
+            printf("\nGAME OVER! YOU HAVE NO LIVES LEFT! :( \n");
+            return 0;
+        }
+        else if(level_selected == 2 && number_of_wins == 2){                    // If player has won 2 levels, end game
+            end_screen();
+        }
+    
+    //
+
 
     // Do forever...
     while(true) {
