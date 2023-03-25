@@ -104,6 +104,34 @@ void init_morse(){
 }
 
 /**
+ * @brief Level #1: Individual characters with their equivalent Morse code provided.
+ *        Asks the user to enter the morse code equivalent of a given alphanumeric
+ *        charcter.
+ * 
+ * @return int 
+ */
+int level_1(){
+    int num = rand() %36;
+    printf("Enter equivalent Morse code for the following charcter:\n");
+    printf("%c \n",alphabet[num].alphanum);
+    printf("%s \n",alphabet[num].morsecode);
+    return num;
+}
+/**
+ * @brief Level #2: Individual characters without their equivalent Morse code provided.
+ *        Same function as level_1 except without giving the morse code equivalent.
+ * 
+ * @return int 
+ */
+int level_2(){
+    int num = rand() %36;
+    printf("Enter equivalent Morse code for the following charcter:\n");
+    printf("%c \n",alphabet[num].alphanum);
+    return num;
+}
+
+
+/**
  * @brief Wrapper function used to call the underlying PIO
  *        function that pushes the 32-bit RGB colour value
  *        out to the LED serially using the PIO0 block. The
