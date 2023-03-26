@@ -105,6 +105,8 @@ void init_morse(){
 
 }
 
+
+
 /**
  * @brief Level #1: Individual characters with their equivalent Morse code provided.
  *        Asks the user to enter the morse code equivalent of a given alphanumeric
@@ -142,6 +144,29 @@ int player_lives = 3;       // Player has 3 lives to start with
 int correct_answers = 0;    // Player has 0 correct answers to start with
 int lives_added = 0;        // Player has 0 lives added to start with
 int lives_lost = 0;         // Player has 0 lives lost to start with
+
+//Code for part 4
+void print_alphanum_morse(struct morsecode *this, char *input) {
+
+    int i = 0;
+    
+    //check if morse code
+    while (strcmp(input, this[i]->morsecode) != 0 && i < 36) {
+        i++;
+    }
+
+    char output = malloc(char);
+
+    if (i >= 36)
+        output = "?";
+    else
+        output = this[i]->alphanum;
+
+    
+    printf("Morse: %s\nAlphanumerical: %s\n", input, output);
+    
+    free(output);
+}
 
 // Code for part 7.
     // Declare watchdog functions
