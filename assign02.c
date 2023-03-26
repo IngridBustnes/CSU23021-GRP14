@@ -10,48 +10,18 @@
 #define NUM_PIXELS 1        // There is 1 WS2812 device in the chain
 #define WS2812_PIN 28       // The GPIO pin that the WS2812 connected to
 
-int init_alphanum(char *alphanum, char **morse, char *filename) {
 
-    //open the file for reading
-    FILE *fp = fopen(filename, "r");
-
-    //return error if 
-    if (fp == NULL) {
-        return 1;
-    }
-
-    const unsigned MAX_LENGTH = 256;
-    char buffer[MAX_LENGTH];
+void print_alphanum_morse(struct morsecode *this, char *input) {
 
     int i = 0;
-    char *token;
-    while (fgets(buffer, MAX_LENGTH, fp)) {
 
-        token = strtok(buffer, "=");
-        alphanum[i] = token;
-
-        token = strtok(NULL, "=");
-        morse[i] = token; 
-
+    while (strcmp(input, this[i]->morsecode) != 0 && i < 36) {
         i++;
     }
 
-    fclose(fp);
+    char output = malloc(char);
 
-    return 0;
-}
-
-void print_alphanum_morse(char *alphanum, char **alpha, char *input) {
-
-    int i = 0;
-    while (strcomp(input, alpha[i]) && i < sizeof(alphanum))
-    {
-        i++;
-    }
-
-    char output[];
-
-    if (i >= sizeof(alphanum))
+    if (i >= 36)
         output = "?";
     else
         output = morse[i];
@@ -59,7 +29,7 @@ void print_alphanum_morse(char *alphanum, char **alpha, char *input) {
     
     printf("Morse: %s\nAlphanumerical: %s\n", input, output);
     
-
+    free(output);
 }
 
 
