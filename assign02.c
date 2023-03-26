@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+#include <string.h>
 
 #include "pico/stdlib.h"
 #include "hardware/pio.h"
@@ -130,6 +132,42 @@ int level_2(){
     return num;
 }
 
+int number_of_wins = 0; // Number of wins the player has achieved
+int player_lives = 0; // Number of lives the player has
+int level_selected = 2; // Level selected by player
+int correct_ans = 0; // Number of correct answers the player has entered
+
+
+int player_lives = 3;       // Player has 3 lives to start with
+int correct_answers = 0;    // Player has 0 correct answers to start with
+int lives_added = 0;        // Player has 0 lives added to start with
+int lives_lost = 0;         // Player has 0 lives lost to start with
+
+// Code for part 7.
+    // Declare watchdog functions
+    void watchdog_update();
+
+    void watchdog_enable(uint32_t delay_ms, bool pause_on_debug);
+
+//
+
+// Code for part 6.
+
+    // Print screen congratulating the player
+    void end_screen() {
+        printf("\nCONGRATULATIONS!! ^.^ \n You've won the game!"); 
+    }
+
+    // Check if 5 correct answers have been entered by player. If yes progress to next level. Otherwise return to level 1/Welcome
+    // This function will be part of level 1 - level 2 code 
+    if (correct_ans == 5) {
+        level_selected = 2;
+        printf("YOU ARE NOW MOVING TO LEVEL X!");
+    }
+
+//
+
+
 
 /**
  * @brief Wrapper function used to call the underlying PIO
@@ -148,19 +186,85 @@ static inline void put_pixel(uint32_t pixel_grb) {
 
 /**
  * @brief Function to generate an unsigned 32-bit composit GRB
- *        value by combining the individual 8-bit paramaters for
+ *        value by combining the individual 8-bit parameters for
  *        red, green and blue together in the right order.
  * 
  * @param r     The 8-bit intensity value for the red component
  * @param g     The 8-bit intensity value for the green component
  * @param b     The 8-bit intensity value for the blue component
- * @return uint32_t Returns the resulting composit 32-bit RGB value
+ * @return uint32_t Returns the resulting composite 32-bit RGB value
  */
 static inline uint32_t urgb_u32(uint8_t r, uint8_t g, uint8_t b) {
     return  ((uint32_t) (r) << 8)  |
             ((uint32_t) (g) << 16) |
             (uint32_t) (b);
 }
+
+// Update RGB LED colour  
+void RGB_update(int number_of_lives)
+{
+    switch (number_of_lives)                                // Switch statement to update RGB LED colour based on number of lives remaining
+    {
+        case 0:                                             // If player has 0 lives remaining
+            // Black
+            put_pixel(urgb_u32(0x00, 0x00, 0x00));
+            printf("0 lives remaining. GAME OVER");
+            break;
+
+        case 1:                                             // If player has 1 life remaining
+            // Red
+            put_pixel(urgb_u32(0xFF, 0x00, 0x00));
+            printf("1 life remaining");
+            break;
+
+        case 2:                                             // If player has 2 lives remaining
+            // Yellow
+            put_pixel(urgb_u32(0xFF, 0xFF, 0x00));
+            printf("2 lives remaining");
+            break;
+
+        case 3:                                             // If player has 3 lives remaining (Max)
+            // Green
+            put_pixel(urgb_u32(0x00, 0xFF, 0x00));
+            printf("3 lives remaining");
+            break;
+
+        default:
+            printf("");
+            break;
+    }
+
+}
+
+// Update player lives 
+void update_lives(bool answer_entered)                          // Function to update player lives based on whether the answer entered was correct or not
+{
+    if (answer_entered == true)                                 // If the answer entered was correct
+    {
+        printf("Correct. Life Added")                           // Add a life to the player
+    
+        lives_added++;
+        correct_answers++;
+        if (player_lives == 3)                                  // If the player has 3 lives(max number of lives), do not add another life
+        {
+            printf("Max Lives Reached");
+        }
+        else                                                    // If the player has less than 3 lives, add a life
+        {
+            player_lives += 1;
+            RGB_update(player_lives);
+        }
+    }
+    else                                                        // If the answer entered was incorrect
+    {
+        printf("Incorrect. Life Lost");                         // Deduct a life from the player
+        correct_answers--;
+        lives_lost++;
+        player_lives -= 1;
+        RGB_update(player_lives);
+    }
+}
+
 
 /**
  * @brief EXAMPLE - WS2812_RGB
@@ -181,6 +285,32 @@ int main() {
     uint offset = pio_add_program(pio, &ws2812_program);
     ws2812_program_init(pio, 0, offset, WS2812_PIN, 800000, IS_RGBW);
 
+    // Code for part 7.
+        watchdog_enable(0x7fffff, 1);                                           // Enable the watchdog timer 
+
+                                                                                // After level selected and letter to be converted printed
+
+        watchdog_update();                                                      // Update the watchdog timer	
+        
+                                                                                // Call asm function 
+        
+        watchdog_update();
+
+        if (watchdog_caused_reboot()) {                                         // Check if watchdog timer caused a reboot 
+            printf("TIMEOUT!");
+        }
+
+        if(player_lives == 0) {                                                 // If player has no lives left, end game
+            printf("\nGAME OVER! YOU HAVE NO LIVES LEFT! :( \n");
+            return 0;
+        }
+        else if(level_selected == 2 && number_of_wins == 2){                    // If player has won 2 levels, end game
+            end_screen();
+        }
+    
+    //
+
+
     // Do forever...
     while(true) {
 
@@ -198,7 +328,9 @@ int main() {
 
     }
 
-    // Should never get here due to infinite while-loop.
+    // Should never get here due to the infinite while-loop.
     return 0;
 
-} 
+
+}
+
