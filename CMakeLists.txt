@@ -14,4 +14,4 @@ target_link_libraries(assign02 PRIVATE pico_stdlib hardware_pio)
 pico_add_extra_outputs(assign02)
 
 # Add the URL via pico_set_program_url.
-apps_auto_set_url(assign02)
+apps_auto_set_url(assign02)  
