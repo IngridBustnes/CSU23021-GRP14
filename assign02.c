@@ -10,6 +10,38 @@
 #define NUM_PIXELS 1        // There is 1 WS2812 device in the chain
 #define WS2812_PIN 28       // The GPIO pin that the WS2812 connected to
 
+/**
+ * @brief Welcome message
+ * 
+ */
+void welcome_message() {
+    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *" + "\n")
+    printf("|          ASSIGNMENT #2 - GROUP 14                     |" + "\n")
+    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- * "+ "\n")
+    printf("|       * * * *   *               *      *     *        |" + "\n")
+    printf("|       *     *   *              * *      *   *         |" + "\n")
+    printf("|       * * * *   *             *   *      * *          |" + "\n")
+    printf("|       *         *            * * * *      *           |" + "\n")
+    printf("|       *         *           *       *     *           |" + "\n")
+    printf("|       *         *          *         *    *           |" + "\n")
+    printf("|       *         * * * *   *           *   *           |" + "\n")
+    printf("|                                                       |" + "\n")
+    printf("|   *         *    * * *    * * *     * * *    * * * *  |" + "\n")
+    printf("|   *  *   *  *  *       *  *   *    *     *   *        |" + "\n")
+    printf("|   *    *    *  *       *  * * *    *         *        |" + "\n")
+    printf("|   *         *  *       *  *  *       * * *   * * *    |" + "\n")
+    printf("|   *         *  *       *  *   *           *  *        |" + "\n")
+    printf("|   *         *  *       *  *    *    *     *  *        |" + "\n")
+    printf("|   *         *    * * *    *     *    * * *   * * * *  |" + "\n")
+    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *" + "\n")
+    printf("|              ARE YOU READY TO PLAY ?                  |" + "\n")
+    printf("|           USE GP21 TO PICK YOUR LEVEL!                |" + "\n")
+    printf("|           \"----\" - LEVEL 1 - CHARS (EASY)             |" + "\n")
+    printf("|           \".---\" - LEVEL 2 - CHARS (HARD)             | "+ "\n")
+    printf("|                  GOODLUCK ! ! !                       |" + "\n")
+    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *" + "\n")
+
+}
 
 /**
  * @brief Wrapper function used to call the underlying PIO
