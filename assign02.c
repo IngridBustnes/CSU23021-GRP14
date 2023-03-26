@@ -43,6 +43,11 @@ void welcome_message() {
 
 }
 
+void start_RGB_Colour(){
+    put_pixel(urgb_u32(0x00, 0x00, 0xFF));
+    printf("The RGB LED is Blue to show the game has not started");
+}
+
 /**
  * @brief Wrapper function used to call the underlying PIO
  *        function that pushes the 32-bit RGB colour value
