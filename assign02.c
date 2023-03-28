@@ -294,9 +294,19 @@ int level_select(){
 void player_select(){
     select_level = true;;
 }
-// Player can't select level
+// Player cannot select level
 void player_select2(){
     select_level = false;;
+}
+
+// Returns the level selected
+int get_level(){
+    return level_selected;
+}
+
+// Sets the level selected
+int set_level(int level){
+    level_selected = level;
 }
 
 
@@ -437,6 +447,10 @@ void level_choice(){
     printf("Please select a level to play:");
     printf("Level 1: .----");
     printf("Level 2: ..---");
+}
+
+void invalid_input_entered(){
+    printf("Invalid input. Please try again.");
 }
 
 void wrong_sequence(){
