@@ -15,37 +15,32 @@
  * 
  */
 void welcome_message() {
-    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *" + "\n")
-    printf("|          ASSIGNMENT #2 - GROUP 14                     |" + "\n")
-    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- * "+ "\n")
-    printf("|       * * * *   *               *      *     *        |" + "\n")
-    printf("|       *     *   *              * *      *   *         |" + "\n")
-    printf("|       * * * *   *             *   *      * *          |" + "\n")
-    printf("|       *         *            * * * *      *           |" + "\n")
-    printf("|       *         *           *       *     *           |" + "\n")
-    printf("|       *         *          *         *    *           |" + "\n")
-    printf("|       *         * * * *   *           *   *           |" + "\n")
-    printf("|                                                       |" + "\n")
-    printf("|   *         *    * * *    * * *     * * *    * * * *  |" + "\n")
-    printf("|   *  *   *  *  *       *  *   *    *     *   *        |" + "\n")
-    printf("|   *    *    *  *       *  * * *    *         *        |" + "\n")
-    printf("|   *         *  *       *  *  *       * * *   * * *    |" + "\n")
-    printf("|   *         *  *       *  *   *           *  *        |" + "\n")
-    printf("|   *         *  *       *  *    *    *     *  *        |" + "\n")
-    printf("|   *         *    * * *    *     *    * * *   * * * *  |" + "\n")
-    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *" + "\n")
-    printf("|              ARE YOU READY TO PLAY ?                  |" + "\n")
-    printf("|           USE GP21 TO PICK YOUR LEVEL!                |" + "\n")
-    printf("|           \"----\" - LEVEL 1 - CHARS (EASY)             |" + "\n")
-    printf("|           \".---\" - LEVEL 2 - CHARS (HARD)             | "+ "\n")
-    printf("|                  GOODLUCK ! ! !                       |" + "\n")
-    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *" + "\n")
+    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *\n");
+    printf("|          ASSIGNMENT #2 - GROUP 14                     |\n");
+    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *\n");
+    printf("|       * * * *   *               *      *     *        |\n");
+    printf("|       *     *   *              * *      *   *         |\n");
+    printf("|       * * * *   *             *   *      * *          |\n");
+    printf("|       *         *            * * * *      *           |\n");
+    printf("|       *         *           *       *     *           |\n");
+    printf("|       *         *          *         *    *           |\n");
+    printf("|       *         * * * *   *           *   *           |\n");
+    printf("|                                                       |\n");
+    printf("|   *         *    * * *    * * *     * * *    * * * *  |\n");
+    printf("|   *  *   *  *  *       *  *   *    *     *   *        |\n");
+    printf("|   *    *    *  *       *  * * *    *         *        |\n");
+    printf("|   *         *  *       *  *  *       * * *   * * *    |\n");
+    printf("|   *         *  *       *  *   *           *  *        |\n");
+    printf("|   *         *  *       *  *    *    *     *  *        |\n");
+    printf("|   *         *    * * *    *     *    * * *   * * * *  |\n");
+    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *\n");
+    printf("|              ARE YOU READY TO PLAY ?                  |\n");
+    printf("|           USE GP21 TO PICK YOUR LEVEL!                |\n");
+    printf("|           \"----\" - LEVEL 1 - CHARS (EASY)             |\n");
+    printf("|           \".---\" - LEVEL 2 - CHARS (HARD)             |\n");
+    printf("|                  GOODLUCK ! ! !                       |\n");
+    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *\n");
 
-}
-
-void start_RGB_Colour(){
-    put_pixel(urgb_u32(0x00, 0x00, 0xFF));
-    printf("The RGB LED is Blue to show the game has not started");
 }
 
 /**
@@ -76,6 +71,15 @@ static inline uint32_t urgb_u32(uint8_t r, uint8_t g, uint8_t b) {
     return  ((uint32_t) (r) << 8)  |
             ((uint32_t) (g) << 16) |
             (uint32_t) (b);
+}
+
+/**
+ * @brief start_RGB_Colour()
+ *  Ensures that the RGB is blue at start of the game
+ */
+void start_RGB_Colour(){
+    put_pixel(urgb_u32(0x00, 0x00, 0xFF));
+    printf("The RGB LED is Blue to show the game has not started");
 }
 
 
