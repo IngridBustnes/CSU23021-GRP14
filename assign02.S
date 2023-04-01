@@ -87,7 +87,9 @@ no_input_sequence1:
     cmp     r0, #1
     beq     level_completed
     cmp     r0, #2
-    beq     game_reboot
+    beq     game_over
+    cmp     r0, #3
+    beq     game_won
     b       begin                                               @ Loop back to begin if input is not completed
 
 end:
@@ -101,16 +103,16 @@ level_completed:
     beq     level2_end
     
 level1_end:
-    bl     progress_level
+    bl      progress_level
     movs    r0, #2
     bl      set_level
-    b      level_end
+    b       level_end
 
 level2_end:
-    bl     progress_level
+    bl      progress_level
     movs    r0, #3
     bl      set_level
-    b      level_end
+    b       level_end
 
 level_end:
     bl      begin_game

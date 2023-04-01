@@ -113,8 +113,9 @@ int correct_sequences = 5;  // Number of correct sequences the player needs to e
 char user_input[20];        // Array to store user input
 int length_of_input = 0;    // Length of user input
 int input_entered = 0;      // Flag to indicate if user has entered input
-int select_level = false;  // Level selected by player
+int select_level = false;   // Level selected by player
 int input_index = 0;        // Index of user input
+int levels_completed = 0;   // Number of levels completed by player
 
 
 /*              RGB LED             */
@@ -392,6 +393,10 @@ int progress_next(){
         printf("\nGAME OVER\n");
         return 2;
     }
+    if(levels_completed == 2){
+        printf("\nYOU WIN!\n");
+        return 3;
+    }
     return 0;
 }
 
@@ -474,6 +479,7 @@ bool continue_game(){
 
 void progress_level(){
     printf("\nLEVEL %d COMPLETED! MOVING TO LEVEL %d\n", level_selected, level_selected + 1);
+    levels_completed++;
 }
 
 void winner(){
