@@ -362,7 +362,7 @@ int level_1(){
     level_selected = 1;
     int num = rand() %36;
     input_index = num;
-    printf("\nEnter Equivalent Morse Code For The Following Charcter:\n");
+    printf("\nEnter Equivalent Morse Code For The Following Character:\n");
     printf("CHARACTER: %c \n",alphabet[num].alphanum);
     printf("MORSE CODE: %s \n",alphabet[num].morsecode);
     return num;
@@ -378,7 +378,7 @@ int level_2(){
     level_selected = 2;
     int num = rand() %36;
     input_index = num;
-    printf("\nEnter Equivalent Morse Code For The Following Charcter:\n");
+    printf("\nEnter Equivalent Morse Code For The Following Character:\n");
     printf("CHARACTER: %c \n",alphabet[num].alphanum);
     return num;
 }
