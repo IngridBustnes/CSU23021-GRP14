@@ -14,59 +14,6 @@
 #define WS2812_PIN 28       // The GPIO pin that the WS2812 connected to
 
 
-/**
- * @brief Welcome message
- * 
- */
-void welcome_message() {
-    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *\n");
-    printf("|          ASSIGNMENT #2 - GROUP 14                     |\n");
-    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *\n");
-    printf("|       * * * *   *               *      *     *        |\n");
-    printf("|       *     *   *              * *      *   *         |\n");
-    printf("|       * * * *   *             *   *      * *          |\n");
-    printf("|       *         *            * * * *      *           |\n");
-    printf("|       *         *           *       *     *           |\n");
-    printf("|       *         *          *         *    *           |\n");
-    printf("|       *         * * * *   *           *   *           |\n");
-    printf("|                                                       |\n");
-    printf("|   *         *    * * *    * * *     * * *    * * * *  |\n");
-    printf("|   *  *   *  *  *       *  *   *    *     *   *        |\n");
-    printf("|   *    *    *  *       *  * * *    *         *        |\n");
-    printf("|   *         *  *       *  *  *       * * *   * * *    |\n");
-    printf("|   *         *  *       *  *   *           *  *        |\n");
-    printf("|   *         *  *       *  *    *    *     *  *        |\n");
-    printf("|   *         *    * * *    *     *    * * *   * * * *  |\n");
-    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *\n");
-    printf("|              ARE YOU READY TO PLAY ?                  |\n");
-    printf("|           USE GP21 TO PICK YOUR LEVEL!                |\n");
-    printf("|           \"----\" - LEVEL 1 - CHARS (EASY)             |\n");
-    printf("|           \".---\" - LEVEL 2 - CHARS (HARD)             |\n");
-    printf("|                  GOODLUCK ! ! !                       |\n");
-    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *\n");
-
-}
-
-/*              VARIABLES               */
-
-int number_of_wins = 0;     // Number of wins the player has achieved
-int player_lives = 3;       // Number of lives the player has
-int level_selected = 0;     // Level selected by player
-int correct_answers = 0;    // Number of correct answers the player has entered
-int lives_added = 0;        // Player has 0 lives added to start with
-int lives_lost = 0;         // Player has 0 lives lost to start with
-
-int correct_sequences = 5;  // Number of correct sequences the player needs to enter to win the game
-char user_input[30];        // Array to store user input
-int length_of_input = 0;    // Length of user input
-int input_entered = 0;      // Flag to indicate if user has entered input
-bool select_level = false;  // Level selected by player
-int input_index = 0;        // Index of user input
-
-/*              WELCOME               */
-//TODO - Della's code
-
-
 /*              ARM FUNCTIONS               */
 
 // Declare the main assembly code entry point.
@@ -108,16 +55,66 @@ void asm_gpio_set_irq(uint pin)
 void watchdog_init(){
     // Check for reboot due to watchdog timeout
     if(watchdog_caused_reboot()){
-        printf("TIMEOUT");
+        printf("\n WATCHDOG TIMEOUT\n");
     }
     // Check for reboot due to watchdog enable
     if(watchdog_enable_caused_reboot()){
-        printf("ENABLED");
+        printf("\n WATCHDOG ENABLED\n");
     }
     // Enable watchdog timer
     watchdog_enable(0x7fffff, 1);
     watchdog_update();
 }
+
+/*              WELCOME               */
+/**
+ * @brief Welcome message
+ * 
+ */
+void welcome_message() {
+    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *\n");
+    printf("|          ASSIGNMENT #2 - GROUP 14                     |\n");
+    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *\n");
+    printf("|       * * * *   *               *      *     *        |\n");
+    printf("|       *     *   *              * *      *   *         |\n");
+    printf("|       * * * *   *             *   *      * *          |\n");
+    printf("|       *         *            * * * *      *           |\n");
+    printf("|       *         *           *       *     *           |\n");
+    printf("|       *         *          *         *    *           |\n");
+    printf("|       *         * * * *   *           *   *           |\n");
+    printf("|                                                       |\n");
+    printf("|   *         *    * * *    * * *     * * *    * * * *  |\n");
+    printf("|   *  *   *  *  *       *  *   *    *     *   *        |\n");
+    printf("|   *    *    *  *       *  * * *    *         *        |\n");
+    printf("|   *         *  *       *  *  *       * * *   * * *    |\n");
+    printf("|   *         *  *       *  *   *           *  *        |\n");
+    printf("|   *         *  *       *  *    *    *     *  *        |\n");
+    printf("|   *         *    * * *    *     *    * * *   * * * *  |\n");
+    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *\n");
+    printf("|              ARE YOU READY TO PLAY ?                  |\n");
+    printf("|           USE GP21 TO PICK YOUR LEVEL!                |\n");
+    printf("|           \".----\" - LEVEL 1 - CHARS (EASY)            |\n");
+    printf("|           \".---\" - LEVEL 2 - CHARS (HARD)             |\n");
+    printf("|                  GOODLUCK ! ! !                       |\n");
+    printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *\n");
+
+}
+
+/*              VARIABLES               */
+
+int number_of_wins = 0;     // Number of wins the player has achieved
+int player_lives = 3;       // Number of lives the player has
+int level_selected = 0;     // Level selected by player
+int correct_answers = 0;    // Number of correct answers the player has entered
+int lives_added = 0;        // Player has 0 lives added to start with
+int lives_lost = 0;         // Player has 0 lives lost to start with
+
+int correct_sequences = 5;  // Number of correct sequences the player needs to enter to win the game
+char user_input[20];        // Array to store user input
+int length_of_input = 0;    // Length of user input
+int input_entered = 0;      // Flag to indicate if user has entered input
+int select_level = false;  // Level selected by player
+int input_index = 0;        // Index of user input
 
 
 /*              RGB LED             */
@@ -158,7 +155,8 @@ static inline uint32_t urgb_u32(uint8_t r, uint8_t g, uint8_t b) {
  */
 void start_RGB_Colour(){
     put_pixel(urgb_u32(0x00, 0x00, 0xFF));
-    printf("The RGB LED is Blue to show the game has not started");
+    //printf("The RGB LED is Blue to show the game has not started");
+}
 
 // Update RGB LED colour  
 void RGB_update(int number_of_lives)
@@ -168,29 +166,29 @@ void RGB_update(int number_of_lives)
         case 0:                                             // If player has 0 lives remaining
             // Black
             put_pixel(urgb_u32(0x00, 0x00, 0x00));
-            printf("0 lives remaining. GAME OVER");
+            //printf("\n0 lives remaining. GAME OVER\n");
             break;
 
         case 1:                                             // If player has 1 life remaining
             // Red
             put_pixel(urgb_u32(0x7F, 0x00, 0x00));
-            printf("1 life remaining");
+            //printf("\n1 life remaining\n");
             break;
 
         case 2:                                             // If player has 2 lives remaining
             // Yellow
             put_pixel(urgb_u32(0xFF, 0xFF, 0x00));
-            printf("2 lives remaining");
+            //printf("\n2 lives remaining\n");
             break;
 
         case 3:                                             // If player has 3 lives remaining (Max)
             // Green
             put_pixel(urgb_u32(0x00, 0xFF, 0x00));
-            printf("3 lives remaining");
+            //printf("\n3 lives remaining\n");
             break;
 
         default:
-            printf("");
+            printf("\nSomething went wrong!\n");
             break;
     }
 
@@ -203,7 +201,7 @@ int get_time(){
     return to_ms_since_boot(time);
 }
 
-int get_time_diff(int start_time, int end_time){
+int get_time_diff(int end_time, int start_time){
     return end_time - start_time;
 }
 
@@ -306,7 +304,7 @@ void init_morse(){
 /*              GAME BEGIN              */
 
 void begin_game(){
-    //TODO - call Della's welcome function
+    start_RGB_Colour();     // Start RGB Colour
     player_lives = 3;       // Player has 3 lives to start with
     correct_answers = 0;    // Player has 0 correct answers to start with
     correct_sequences = 5;  // Player needs to enter 5 correct sequences to win the game
@@ -317,28 +315,29 @@ void begin_game(){
 int level_select(){
     // Level 1 selected .----
     if(strcmp(user_input, alphabet[27].morsecode) == 0){
-        printf("LEVEL 1");
+        printf("\nLEVEL 1\n");
         return 1;
     }
     // Level 2 selected ..---
     else if(strcmp(user_input, alphabet[28].morsecode) == 0){
-        printf("LEVEL 2");
+        printf("\nLEVEL 2\n");
         return 2;
     }
     //Level invalid
     else{
-        printf("Invalid input. Please try again.");
-        return -1;
+        printf("\n?\n");
+        printf("INVALID LEVEL");
+        return 5;
     }
 }
 
 // Player can select level
 void player_select(){
-    select_level = true;;
+    select_level = 1;
 }
 // Player cannot select level
 void player_select2(){
-    select_level = false;;
+    select_level = 0;
 }
 
 // Returns the level selected
@@ -347,7 +346,7 @@ int get_level(){
 }
 
 // Sets the level selected
-int set_level(int level){
+void set_level(int level){
     level_selected = level;
 }
 
@@ -355,7 +354,7 @@ int set_level(int level){
 /**
  * @brief Level #1: Individual characters with their equivalent Morse code provided.
  *        Asks the user to enter the morse code equivalent of a given alphanumeric
- *        charcter.
+ *        character.
  * 
  * @return int 
  */
@@ -363,9 +362,9 @@ int level_1(){
     level_selected = 1;
     int num = rand() %36;
     input_index = num;
-    printf("Enter equivalent Morse code for the following charcter:\n");
-    printf("%c \n",alphabet[num].alphanum);
-    printf("%s \n",alphabet[num].morsecode);
+    printf("\nEnter Equivalent Morse Code For The Following Charcter:\n");
+    printf("CHARACTER: %c \n",alphabet[num].alphanum);
+    printf("MORSE CODE: %s \n",alphabet[num].morsecode);
     return num;
 }
 
@@ -379,18 +378,18 @@ int level_2(){
     level_selected = 2;
     int num = rand() %36;
     input_index = num;
-    printf("Enter equivalent Morse code for the following charcter:\n");
-    printf("%c \n",alphabet[num].alphanum);
+    printf("\nEnter Equivalent Morse Code For The Following Charcter:\n");
+    printf("CHARACTER: %c \n",alphabet[num].alphanum);
     return num;
 }
 
 // Check if player can move on to next level
 int progress_next(){
-    if(correct_sequences == 5){
+    if(correct_answers == 5){
         return 1;
     }
     if(player_lives == 0){
-        printf("GAME OVER");
+        printf("\nGAME OVER\n");
         return 2;
     }
     return 0;
@@ -401,7 +400,7 @@ int progress_next(){
 
 // Intialize input array
 void init_input(){
-    int max = 30;
+    int max = 20;
     for(int i = 0; i < max; i++){
         user_input[i] = '\0';
     }
@@ -430,13 +429,13 @@ void input_handler(int player_input){
         printf(" ");
     }
     // If player enters enter (select level)
-    else if(player_input == 4 && select_level == true){
+    else if(player_input == 4 && select_level == 1){
         user_input[length_of_input - 1] = '\0';
         input_entered = 1;
         level_select();
     }
     // If player enters enter (input morse code)
-    else if(player_input == 4 && select_level == false){
+    else if(player_input == 4 && select_level == 0){
         user_input[length_of_input - 1] = '\0';
         input_entered = 1;
         display_input();
@@ -474,42 +473,47 @@ bool continue_game(){
 }
 
 void progress_level(){
-    printf("Completed level %d", level_selected);
+    printf("\nLEVEL %d COMPLETED! MOVING TO LEVEL %d\n", level_selected, level_selected + 1);
 }
 
 void winner(){
-    printf("Congratulations! You have won the game!");
+    printf("\CONGRATULATIONS! YOU WON!\n");
 }
 
 void loser(){
-    printf("You have lost the game. Better luck next time!");
+    printf("\COMMISERATIONS :( YOU LOST!\n");
 }
 
 void level_choice(){
-    printf("Please select a level to play:");
-    printf("Level 1: .----");
-    printf("Level 2: ..---");
+    printf("Please Select A Level To Play: \n");
+    printf("\nLevel 1: .----");
+    printf("\nLevel 2: ..---\n");
 }
 
 void invalid_input_entered(){
-    printf("Invalid input. Please try again.");
+    printf("\n?\n");
+    printf("INCORRECT MORSE CODE\n");
 }
 
 void wrong_sequence(){
-    printf("You entered %s", user_input);
-    printf("The correct sequence is %s", alphabet[input_index].morsecode);
+    printf("\nPLAYER INPUT: %s", user_input);
+    printf("\nCORRECT SEQUENCE: %s", alphabet[input_index].morsecode);
     player_lives--;
-    printf("You have %d lives left", player_lives);
+    printf("\nWRONG SEQUENCE! LOST A LIFE");
+    printf("\n%d LIVES LEFT\n", player_lives);
 }
 
 void correct_sequence(){
-    printf("You entered %s", user_input);
-    printf("The correct sequence is %s", alphabet[input_index].morsecode);
+    printf("\nPLAYER INPUT: %s", user_input);
+    printf("\nCORRECT SEQUENCE %s", alphabet[input_index].morsecode);
     correct_answers++;
-    printf("You have %d correct sequences", correct_sequences);
+    printf("\n%d CORRECT SEQUENCES", correct_answers);
     if(player_lives < 3){
         player_lives++;
-        printf("You have gained a life! You now have %d lives", player_lives);
+        printf("\nGAINED A LIFE! PLAYER LIVES: %d", player_lives);
+    }
+    else{
+        printf("\nMAX LIVES REACHED! NO LIVES GAINED\n");
     }
 }
 
@@ -517,16 +521,17 @@ void display_input(){
     if(input_index >= 0 && input_index <= 35){
         int ans = validate_input_sequence();
         if(input_entered == 1){
-            if(ans == 1){
-                correct_sequence();
+            if(ans == 0){
+                wrong_sequence();
             }
             else{
-                wrong_sequence();
+                correct_sequence();
             }
         }
     }
     else{
-        printf("Invalid input. Please try again.");
+        printf("\n?\n");
+        printf("INCORRECT MORSE CODE\n");
     }
 }
 
@@ -567,8 +572,10 @@ int main() {
     ws2812_program_init(pio, 0, offset, WS2812_PIN, 800000, IS_RGBW);
     put_pixel(urgb_u32(0x00,0x00,0x7f)); // Blue
 
-    //TODO - Call Della's welcome screen function
+    welcome_message();
     watchdog_update(); 
+
+    main_asm();
 
     // Should never get here due to the infinite while-loop.
     return 0;
