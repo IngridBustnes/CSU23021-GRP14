@@ -363,7 +363,7 @@ void init_input(){
     for(int i = 0; i < max; i++){
         user_input[i] = '\0';
     }
-    input_init = 0;
+    input_entered = 0;
     length_of_input = 0;
 }
 
@@ -371,31 +371,31 @@ void init_input(){
 void input_handler(int player_input){
     // If player enters dot
     if(player_input == 1){
-        player_input[i] = '.';
+        user_input[length_of_input] = '.';
         length_of_input++;
         printf(".");
     }
     // If player enters dash
     else if(player_input == 2){
-        player_input[i] = '-';
+        user_input[length_of_input] = '-';
         length_of_input++;
         printf("-");
     }
     // If player enters space
     else if(player_input == 3){
-        player_input[i] = ' ';
+        user_input[length_of_input] = ' ';
         length_of_input++;
         printf(" ");
     }
     // If player enters enter (select level)
     else if(player_input == 4 && select_level == true){
-        player_input[i - 1] = '\0';
+        user_input[length_of_input - 1] = '\0';
         input_entered = 1;
         level_select();
     }
     // If player enters enter (input morse code)
     else if(player_input == 4 && select_level == false){
-        player_input[i - 1] = '\0';
+        user_input[length_of_input - 1] = '\0';
         input_entered = 1;
         display_input();
         RGB_update(player_lives);
@@ -472,7 +472,7 @@ void correct_sequence(){
 }
 
 void display_input(){
-    if(input_index >= 0 && <= 35){
+    if(input_index >= 0 && input_index <= 35){
         int ans = validate_input_sequence();
         if(input_entered == 1){
             if(ans == 1){
@@ -489,28 +489,28 @@ void display_input(){
 }
 
 
-//Code for part 4
-void print_alphanum_morse(struct morsecode *this, char *input) {
+// //Code for part 4
+// void print_alphanum_morse(struct morsecode *this, char *input) {
 
-    int i = 0;
+//     int i = 0;
     
-    //check if morse code
-    while (strcmp(input, this[i]->morsecode) != 0 && i < 36) {
-        i++;
-    }
+//     //check if morse code
+//     while (strcmp(input, this[i]->morsecode) != 0 && i < 36) {
+//         i++;
+//     }
 
-    char output = malloc(char);
+//     char output = malloc(char);
 
-    if (i >= 36)
-        output = "?";
-    else
-        output = this[i]->alphanum;
+//     if (i >= 36)
+//         output = "?";
+//     else
+//         output = this[i]->alphanum;
 
     
-    printf("Morse: %s\nAlphanumerical: %s\n", input, output);
+//     printf("Morse: %s\nAlphanumerical: %s\n", input, output);
     
-    free(output);
-}
+//     free(output);
+// }
 
 
 int main() {
