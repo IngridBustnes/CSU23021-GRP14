@@ -503,6 +503,7 @@ void invalid_input_entered(){
 
 void wrong_sequence(){
     printf("\nPLAYER INPUT: %s", user_input);
+//  printf("\nPLAYER ALPHANUMERICAL INPUT: %s" morseToAlphaNum(user_input));
     printf("\nCORRECT SEQUENCE: %s", alphabet[input_index].morsecode);
     player_lives--;
     printf("\nWRONG SEQUENCE! LOST A LIFE");
@@ -511,6 +512,7 @@ void wrong_sequence(){
 
 void correct_sequence(){
     printf("\nPLAYER INPUT: %s", user_input);
+//  printf("\nPLAYER ALPHANUMERICAL INPUT: %s" morseToAlphaNum(user_input));
     printf("\nCORRECT SEQUENCE %s", alphabet[input_index].morsecode);
     correct_answers++;
     printf("\n%d CORRECT SEQUENCES", correct_answers);
@@ -542,28 +544,39 @@ void display_input(){
 }
 
 
-// //Code for part 4
-// void print_alphanum_morse(struct morsecode *this, char *input) {
+//char * morseToAlphaNum(char * morse) {
 
-//     int i = 0;
+//    char * token = strtok(morse, " ");
+
+//    char s1[20];
+//    char s2[20];
+
+//    s1 = "";
+//    s2 = " ";
+
+//    strcat(s1, findCorrespondingSequence(token));
+//    strcat(s1, s2);
+
+//    while (token != NULL) {
+//        s2 = findCorrespondingSequence(morse);
+//        strcat(s1, s2);
+//        s2 = " ";
+//        strcat(s1, s2);
+//        token = strtok(morse, " ");
+//    }
+//    return s1;
+
+}
+
+//char findCorrespondingSequence (char * morse) {
     
-//     //check if morse code
-//     while (strcmp(input, this[i]->morsecode) != 0 && i < 36) {
-//         i++;
-//     }
+//    for (int i = 0; i < 36; i++) {
+//        if (strcmp(alphabet[i]->morsecode, morse) == 0)
+//            return alphabet[i]->alphanum;
+//    }
+//    return '?';
+//}
 
-//     char output = malloc(char);
-
-//     if (i >= 36)
-//         output = "?";
-//     else
-//         output = this[i]->alphanum;
-
-    
-//     printf("Morse: %s\nAlphanumerical: %s\n", input, output);
-    
-//     free(output);
-// }
 
 
 int main() {
