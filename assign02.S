@@ -73,9 +73,8 @@ level2:
     b       level_chosen
 
 level3:
-    bl      level_3                                             @ Display level 2 question
+    bl      level_3                                             @ Display level 3 question
     b       level_chosen
-
 level_chosen:                                                   @ Process player input for selected level
     movs    r4, #3                                              @ Dot or dash
     movs    r5, #0                                              @ Number of interrupts/seconds
@@ -165,7 +164,7 @@ no_input_sequence2:
     beq     level1_input
     cmp     r0, #2                                                  @ Input for level 2     
     beq     level_2_input
-    cmp     r0, #3                                                  @ Input for level 2     
+    cmp     r0, #3                                                  @ Input for level 3
     beq     level_3_input
     
     cmp     r0, #5                                                  @ Invalid input
@@ -179,7 +178,7 @@ level_2_input:                                                      @ Level 2 in
     ldr     r0, =2  
     b       level_input_entered
 
-level_3_input:                                                      @ Level 2 input entered in input array    
+level_3_input:                                                      @ Level 3 input entered in input array
     ldr     r0, =3  
     b       level_input_entered
 
