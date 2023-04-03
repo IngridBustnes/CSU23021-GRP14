@@ -94,7 +94,8 @@ void welcome_message() {
     printf("|              ARE YOU READY TO PLAY ?                  |\n");
     printf("|           USE GP21 TO PICK YOUR LEVEL!                |\n");
     printf("|           \".----\" - LEVEL 1 - CHARS (EASY)            |\n");
-    printf("|           \".---\" - LEVEL 2 - CHARS (HARD)             |\n");
+    printf("|           \".---\" - LEVEL 2 - CHARS (MEDIUM)             |\n");
+    printf("|           \"...--\" - LEVEL 3 - WORDS (HARD)              |\n");
     printf("|                  GOODLUCK ! ! !                       |\n");
     printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *\n");
 
@@ -116,6 +117,7 @@ int input_entered = 0;      // Flag to indicate if user has entered input
 int select_level = false;   // Level selected by player
 int input_index = 0;        // Index of user input
 int levels_completed = 0;   // Number of levels completed by player
+int level_3_index = 0;      // Index of level 3 word
 
 
 /*              RGB LED             */
@@ -213,6 +215,7 @@ int get_time_diff(int end_time, int start_time){
 typedef struct morsecode{           // Creating morsecode datatype
     char * morsecode;
     char alphanum;
+    char * word;
 }
 morse;
 
@@ -299,6 +302,15 @@ void init_morse(){
     alphabet[34].morsecode="---..";
     alphabet[35].morsecode="----.";
 
+    alphabet[0].word="Dog";
+    alphabet[1].word="Cat";
+    alphabet[2].word="Board";
+
+    alphabet[36].morsecode="-.. --- --.";
+    alphabet[37].morsecode="-.-. .- -";
+    alphabet[38].morsecode="-... --- .- .-. -..";
+
+
 }
 
 
@@ -323,6 +335,11 @@ int level_select(){
     else if(strcmp(user_input, alphabet[28].morsecode) == 0){
         printf("\nLEVEL 2\n");
         return 2;
+    }
+    // Level 3 selected ...--
+    else if(strcmp(user_input, alphabet[29].morsecode) == 0){
+        printf("\nLEVEL 3\n");
+        return 3;
     }
     //Level invalid
     else{
@@ -382,6 +399,44 @@ int level_2(){
     printf("\nEnter Equivalent Morse Code For The Following Character:\n");
     printf("CHARACTER: %c \n",alphabet[num].alphanum);
     return num;
+}
+
+/**
+ * @brief Level #3: Individual words with their equivalent Morse code provided.
+ *        Asks the user to enter the morse code equivalent of a given word.
+ * 
+ * @return int 
+ */
+int level_3(){
+    level_selected = 3;
+    int num = 0;
+    switch (level_3_index) {
+        case 0:
+            num = 36;
+            input_index = num;
+            printf("\nEnter Equivalent Morse Code For The Following Word:\n");
+            printf("WORD: %s \n",alphabet[0].word);
+            printf("MORSE CODE: %s \n",alphabet[num].morsecode);
+            level_3_index++;
+            return num;
+        case 1:
+            num = 37;
+            input_index = num;
+            printf("\nEnter Equivalent Morse Code For The Following Word:\n");
+            printf("WORD: %s \n",alphabet[1].word);
+            printf("MORSE CODE: %s \n",alphabet[num].morsecode);
+            level_3_index++;
+            return num;
+        case 2:
+            num = 38;
+            input_index = num;
+            printf("\nEnter Equivalent Morse Code For The Following Word:\n");
+            printf("WORD: %s \n",alphabet[2].word);
+            printf("MORSE CODE: %s \n",alphabet[num].morsecode);
+            level_3_index = 0;
+            return num;
+        return num;
+    }
 }
 
 // Check if player can move on to next level
@@ -494,6 +549,7 @@ void level_choice(){
     printf("Please Select A Level To Play: \n");
     printf("\nLevel 1: .----");
     printf("\nLevel 2: ..---\n");
+    printf("\nLevel 3: ...--\n");
 }
 
 void invalid_input_entered(){
@@ -525,6 +581,30 @@ void correct_sequence(){
     }
 }
 
+void wrong_sequence_level_3(){
+    printf("\nPLAYER INPUT: %s", user_input);
+//  printf("\nPLAYER ALPHANUMERICAL INPUT: %s" morseToAlphaNum(user_input));
+    printf("\nCORRECT SEQUENCE: %s", alphabet[input_index].morsecode);
+    player_lives--;
+    printf("\nWRONG SEQUENCE! LOST A LIFE");
+    printf("\n%d LIVES LEFT\n", player_lives);
+}
+
+void correct_sequence_level_3(){
+    printf("\nPLAYER INPUT: %s", user_input);
+//  printf("\nPLAYER ALPHANUMERICAL INPUT: %s" morseToAlphaNum(user_input));
+    printf("\nCORRECT SEQUENCE %s", alphabet[input_index].morsecode);
+    correct_answers++;
+    printf("\n%d CORRECT SEQUENCES", correct_answers);
+    if(player_lives < 3){
+        player_lives++;
+        printf("\nGAINED A LIFE! PLAYER LIVES: %d", player_lives);
+    }
+    else{
+        printf("\nMAX LIVES REACHED! NO LIVES GAINED\n");
+    }
+}
+
 void display_input(){
     if(input_index >= 0 && input_index <= 35){
         int ans = validate_input_sequence();
@@ -535,6 +615,30 @@ void display_input(){
             else{
                 correct_sequence();
             }
+        }
+    }
+    else if(input_index == 36){
+        if(strcmp(user_input, "-.. --- --.")==0){
+            correct_sequence_level_3();
+        }
+        else{
+            wrong_sequence_level_3();
+        }
+    }
+    else if(input_index == 37){
+        if(strcmp(user_input, "-.-. .- -")==0){
+            correct_sequence_level_3();
+        }
+        else{
+            wrong_sequence_level_3();
+        }
+    }
+    else if(input_index == 38){
+        if(strcmp(user_input, "-... --- .- .-. -..")==0){
+            correct_sequence_level_3();
+        }
+        else{
+            wrong_sequence_level_3();
         }
     }
     else{
