@@ -566,7 +566,7 @@ void display_input(){
 //    }
 //    return s1;
 
-}
+//}
 
 //char findCorrespondingSequence (char * morse) {
     
