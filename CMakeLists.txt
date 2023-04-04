@@ -15,3 +15,4 @@ pico_add_extra_outputs(assign02)
 
 # Add the URL via pico_set_program_url.
 apps_auto_set_url(assign02)
+
