@@ -681,6 +681,24 @@ void display_input(){
 //    return '?';
 //}
 
+//void morseToAlphaNum(char * morse) {
+
+  //  char * token = = strtok(morse, " ");
+
+  //  while (token != NULL) {
+  //      printf(" " + findCorrespondingSequence(token));
+  //      token = strtok(morse, " ");
+  //  }
+
+//}
+
+//void stats() {
+
+  //  printf("YOU HAD A TOTAL OF %d CORRECT ANSWERS!\n", correct_answers);
+  //  printf("YOU HAD A TOTAL OF %d INCORRECT ANSWERS!\n", incorrect_answers);
+  //  printf("YOU HAD A SUCCESS RATE OF %d%%", (100*correct_answers)/(100*(correct_answers+incorrect_answers)));
+
+//}
 
 
 int main() {
