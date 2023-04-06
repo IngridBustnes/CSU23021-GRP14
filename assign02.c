@@ -106,6 +106,7 @@ void welcome_message() {
 int number_of_wins = 0;     // Number of wins the player has achieved
 int player_lives = 3;       // Number of lives the player has
 int level_selected = 0;     // Level selected by player
+int incorrect_answers = 0   // Number of incorrect answers the player has entered
 int correct_answers = 0;    // Number of correct answers the player has entered
 int lives_added = 0;        // Player has 0 lives added to start with
 int lives_lost = 0;         // Player has 0 lives lost to start with
@@ -559,16 +560,17 @@ void invalid_input_entered(){
 
 void wrong_sequence(){
     printf("\nPLAYER INPUT: %s", user_input);
-//  printf("\nPLAYER ALPHANUMERICAL INPUT: %s" morseToAlphaNum(user_input));
+//  printf("\nPLAYER ALPHANUMERICAL INPUT:" morseToAlphaNum(user_input));
     printf("\nCORRECT SEQUENCE: %s", alphabet[input_index].morsecode);
     player_lives--;
+    incorrect_answers++;
     printf("\nWRONG SEQUENCE! LOST A LIFE");
     printf("\n%d LIVES LEFT\n", player_lives);
 }
 
 void correct_sequence(){
     printf("\nPLAYER INPUT: %s", user_input);
-//  printf("\nPLAYER ALPHANUMERICAL INPUT: %s" morseToAlphaNum(user_input));
+//  printf("\nPLAYER ALPHANUMERICAL INPUT:" morseToAlphaNum(user_input));
     printf("\nCORRECT SEQUENCE %s", alphabet[input_index].morsecode);
     correct_answers++;
     printf("\n%d CORRECT SEQUENCES", correct_answers);
@@ -583,16 +585,17 @@ void correct_sequence(){
 
 void wrong_sequence_level_3(){
     printf("\nPLAYER INPUT: %s", user_input);
-//  printf("\nPLAYER ALPHANUMERICAL INPUT: %s" morseToAlphaNum(user_input));
+//  printf("\nPLAYER ALPHANUMERICAL INPUT:" morseToAlphaNum(user_input));
     printf("\nCORRECT SEQUENCE: %s", alphabet[input_index].morsecode);
     player_lives--;
+    incorrect_answers++;
     printf("\nWRONG SEQUENCE! LOST A LIFE");
     printf("\n%d LIVES LEFT\n", player_lives);
 }
 
 void correct_sequence_level_3(){
     printf("\nPLAYER INPUT: %s", user_input);
-//  printf("\nPLAYER ALPHANUMERICAL INPUT: %s" morseToAlphaNum(user_input));
+//  printf("\nPLAYER ALPHANUMERICAL INPUT:" morseToAlphaNum(user_input));
     printf("\nCORRECT SEQUENCE %s", alphabet[input_index].morsecode);
     correct_answers++;
     printf("\n%d CORRECT SEQUENCES", correct_answers);
