@@ -8,6 +8,8 @@
 #include "hardware/clocks.h"
 #include "ws2812.pio.h"
 #include "hardware/watchdog.h" 
+#include "hardware/watchdog.h"
+
 
 #define IS_RGBW true        // Will use RGBW format
 #define NUM_PIXELS 1        // There is 1 WS2812 device in the chain
@@ -120,6 +122,7 @@ int input_index = 0;        // Index of user input
 int levels_completed = 0;   // Number of levels completed by player
 int level_3_index = 0;      // Index of level 3 word
 int level_4_index =0;       // Index of level 4 word
+
 
 
 /*              RGB LED             */
@@ -348,6 +351,7 @@ int level_select(){
         printf("\nLEVEL 4\n");
         return 4;
     }
+    
     //Level invalid
     else{
         printf("\n?\n");
@@ -414,6 +418,7 @@ int level_2(){
  * 
  * @return int 
  */
+
 int level_3(){
     level_selected = 3;
     int num = 0;
@@ -445,6 +450,7 @@ int level_3(){
         return num;
     }
 }
+
 /**
  * @brief Level #4: Individual words without their equivalent Morse code provided
  * 
@@ -478,6 +484,7 @@ int level_4(){
         return num;
     }
 }
+
 
 // Check if player can move on to next level
 int progress_next(){
@@ -622,6 +629,7 @@ void correct_sequence(){
     }
 }
 
+
 void wrong_sequence_level_3_and_4(){
     printf("\nPLAYER INPUT: %s", user_input);
 //  printf("\nPLAYER ALPHANUMERICAL INPUT: %s" morseToAlphaNum(user_input));
@@ -673,6 +681,7 @@ void display_input(){
         else{
             wrong_sequence_level_3_and_4();
         }
+      
     }
     else if(input_index == 38){
         if(strcmp(user_input, "-... --- .- .-. -..")==0){

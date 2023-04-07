@@ -63,7 +63,6 @@ begin:                                                          @ Initialize inp
     cmp     r0, #4
     beq     level4
 
-
 level1:
     bl      level_1                                             @ Display level 1 question                         
     b       level_chosen
@@ -116,7 +115,6 @@ level_completed:
 
     cmp     r0, #4
     beq     level4_end
-
     
 level1_end:
     bl      progress_level
@@ -142,7 +140,6 @@ level4_end:
     bl      set_level
     b       level_end
       
-
 level_end:
     bl      begin_game
     b       begin
@@ -174,7 +171,7 @@ incomplete_input:
 no_input_sequence2:
     cmp     r5, #2                                                  @ Check if input is complete, if not loop back to incomplete_input
     bne     incomplete_input 
-
+    
     cmp     r0, #1                                                  @ Input for level 1
     beq     level1_input
     cmp     r0, #2                                                  @ Input for level 2     
