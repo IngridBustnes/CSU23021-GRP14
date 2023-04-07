@@ -60,9 +60,8 @@ begin:                                                          @ Initialize inp
     beq     level2
     cmp     r0, #3
     beq     level3
-
-    cmp     r0, #5
-    beq     end
+    cmp     r0, #4
+    beq     level4
 
 level1:
     bl      level_1                                             @ Display level 1 question                         
@@ -75,6 +74,10 @@ level2:
 level3:
     bl      level_3                                             @ Display level 3 question
     b       level_chosen
+
+level4:
+    bl      level_4                                              @ Display level 4 question
+
 level_chosen:                                                   @ Process player input for selected level
     movs    r4, #3                                              @ Dot or dash
     movs    r5, #0                                              @ Number of interrupts/seconds
@@ -109,6 +112,9 @@ level_completed:
 
     cmp     r0, #3
     beq     level3_end
+
+    cmp     r0, #4
+    beq     level4_end
     
 level1_end:
     bl      progress_level
@@ -128,6 +134,12 @@ level3_end:
     bl      set_level
     b       level_end
 
+level4_end:
+    bl      progress_level
+    movs    r0, #5
+    bl      set_level
+    b       level_end
+      
 level_end:
     bl      begin_game
     b       begin
@@ -158,14 +170,16 @@ incomplete_input:
 
 no_input_sequence2:
     cmp     r5, #2                                                  @ Check if input is complete, if not loop back to incomplete_input
-    bne     incomplete_input
-
+    bne     incomplete_input 
+    
     cmp     r0, #1                                                  @ Input for level 1
     beq     level1_input
     cmp     r0, #2                                                  @ Input for level 2     
     beq     level_2_input
     cmp     r0, #3                                                  @ Input for level 3
     beq     level_3_input
+    cmp     r0, #4                                                  @ Input for level 4
+    beq     level_4_input
     
     cmp     r0, #5                                                  @ Invalid input
     beq     invalid_input
@@ -181,6 +195,10 @@ level_2_input:                                                      @ Level 2 in
 level_3_input:                                                      @ Level 3 input entered in input array
     ldr     r0, =3  
     b       level_input_entered
+
+level_4_input:                                                      @ Level 4 input entered in input array
+    ldr     r0, =4                                
+    b       level_input_entered          
 
 invalid_input:                                                      @ Invalid input entered
     bl      invalid_input_entered

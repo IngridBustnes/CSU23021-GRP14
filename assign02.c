@@ -7,7 +7,9 @@
 #include "hardware/pio.h"
 #include "hardware/clocks.h"
 #include "ws2812.pio.h"
+#include "hardware/watchdog.h" 
 #include "hardware/watchdog.h"
+
 
 #define IS_RGBW true        // Will use RGBW format
 #define NUM_PIXELS 1        // There is 1 WS2812 device in the chain
@@ -93,9 +95,10 @@ void welcome_message() {
     printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *\n");
     printf("|              ARE YOU READY TO PLAY ?                  |\n");
     printf("|           USE GP21 TO PICK YOUR LEVEL!                |\n");
-    printf("|           \".----\" - LEVEL 1 - CHARS (EASY)            |\n");
-    printf("|           \".---\" - LEVEL 2 - CHARS (MEDIUM)             |\n");
-    printf("|           \"...--\" - LEVEL 3 - WORDS (HARD)              |\n");
+    printf("|           \".----\" - LEVEL 1 - CHARS (EASY)          |\n");
+    printf("|           \".----\" - LEVEL 2 - CHARS (MEDIUM)        |\n");
+    printf("|           \"...--\" - LEVEL 3 - WORDS (HARD)          |\n");
+    printf("|           \"....-\" - LEVEL 4 - WORDS (EXPERT)        |\n");
     printf("|                  GOODLUCK ! ! !                       |\n");
     printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *\n");
 
@@ -118,6 +121,8 @@ int select_level = false;   // Level selected by player
 int input_index = 0;        // Index of user input
 int levels_completed = 0;   // Number of levels completed by player
 int level_3_index = 0;      // Index of level 3 word
+int level_4_index =0;       // Index of level 4 word
+
 
 
 /*              RGB LED             */
@@ -341,6 +346,12 @@ int level_select(){
         printf("\nLEVEL 3\n");
         return 3;
     }
+    // Level 4 selected ....-
+    else if(strcmp(user_input, alphabet[30].morsecode) == 0){
+        printf("\nLEVEL 4\n");
+        return 4;
+    }
+    
     //Level invalid
     else{
         printf("\n?\n");
@@ -407,6 +418,7 @@ int level_2(){
  * 
  * @return int 
  */
+
 int level_3(){
     level_selected = 3;
     int num = 0;
@@ -438,6 +450,41 @@ int level_3(){
         return num;
     }
 }
+
+/**
+ * @brief Level #4: Individual words without their equivalent Morse code provided
+ * 
+ * @return int 
+ */
+int level_4(){
+    level_selected = 4;
+    int num = 0;
+    switch (level_4_index){
+     case 0:
+            num = 36;
+            input_index = num;
+            printf("\nEnter Equivalent Morse Code For The Following Word:\n");
+            printf("WORD: %s \n",alphabet[0].word);
+            level_4_index++;
+            return num;
+        case 1:
+            num = 37;
+            input_index = num;
+            printf("\nEnter Equivalent Morse Code For The Following Word:\n");
+            printf("WORD: %s \n",alphabet[1].word);
+            level_4_index++;
+            return num;
+        case 2:
+            num = 38;
+            input_index = num;
+            printf("\nEnter Equivalent Morse Code For The Following Word:\n");
+            printf("WORD: %s \n",alphabet[2].word);
+            level_4_index = 0;
+            return num;
+        return num;
+    }
+}
+
 
 // Check if player can move on to next level
 int progress_next(){
@@ -550,6 +597,7 @@ void level_choice(){
     printf("\nLevel 1: .----");
     printf("\nLevel 2: ..---\n");
     printf("\nLevel 3: ...--\n");
+    printf("\nLevel 4: ....-\n");
 }
 
 void invalid_input_entered(){
@@ -581,7 +629,8 @@ void correct_sequence(){
     }
 }
 
-void wrong_sequence_level_3(){
+
+void wrong_sequence_level_3_and_4(){
     printf("\nPLAYER INPUT: %s", user_input);
 //  printf("\nPLAYER ALPHANUMERICAL INPUT: %s" morseToAlphaNum(user_input));
     printf("\nCORRECT SEQUENCE: %s", alphabet[input_index].morsecode);
@@ -590,7 +639,7 @@ void wrong_sequence_level_3(){
     printf("\n%d LIVES LEFT\n", player_lives);
 }
 
-void correct_sequence_level_3(){
+void correct_sequence_level_3_and_4(){
     printf("\nPLAYER INPUT: %s", user_input);
 //  printf("\nPLAYER ALPHANUMERICAL INPUT: %s" morseToAlphaNum(user_input));
     printf("\nCORRECT SEQUENCE %s", alphabet[input_index].morsecode);
@@ -619,26 +668,27 @@ void display_input(){
     }
     else if(input_index == 36){
         if(strcmp(user_input, "-.. --- --.")==0){
-            correct_sequence_level_3();
+            correct_sequence_level_3_and_4();
         }
         else{
-            wrong_sequence_level_3();
+            wrong_sequence_level_3_and_4();
         }
     }
     else if(input_index == 37){
         if(strcmp(user_input, "-.-. .- -")==0){
-            correct_sequence_level_3();
+            correct_sequence_level_3_and_4();
         }
         else{
-            wrong_sequence_level_3();
+            wrong_sequence_level_3_and_4();
         }
+      
     }
     else if(input_index == 38){
         if(strcmp(user_input, "-... --- .- .-. -..")==0){
-            correct_sequence_level_3();
+            correct_sequence_level_3_and_4();
         }
         else{
-            wrong_sequence_level_3();
+            wrong_sequence_level_3_and_4();
         }
     }
     else{
@@ -703,4 +753,5 @@ int main() {
     // Should never get here due to the infinite while-loop.
     return 0;
 }
+
 
