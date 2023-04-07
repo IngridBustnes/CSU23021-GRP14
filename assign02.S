@@ -173,7 +173,7 @@ incomplete_input:
 
 no_input_sequence2:
     cmp     r5, #2                                                  @ Check if input is complete, if not loop back to incomplete_input
-    bne     incomplete_input
+    bne     incomplete_input 
 
     cmp     r0, #1                                                  @ Input for level 1
     beq     level1_input
