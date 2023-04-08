@@ -249,10 +249,10 @@ void welcome_message()
     printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *\n");
     printf("|              ARE YOU READY TO PLAY ?                  |\n");
     printf("|           USE GP21 TO PICK YOUR LEVEL!                |\n");
-    printf("|           \".----\" - LEVEL 1 - CHARS (EASY)          |\n");
-    printf("|           \".----\" - LEVEL 2 - CHARS (MEDIUM)        |\n");
-    printf("|           \"...--\" - LEVEL 3 - WORDS (HARD)          |\n");
-    printf("|           \"....-\" - LEVEL 4 - WORDS (EXPERT)        |\n");
+    printf("|           \".----\" - LEVEL 1 - CHARS (EASY)            |\n");
+    printf("|           \".----\" - LEVEL 2 - CHARS (MEDIUM)          |\n");
+    printf("|           \"...--\" - LEVEL 3 - WORDS (HARD)            |\n");
+    printf("|           \"....-\" - LEVEL 4 - WORDS (EXPERT)          |\n");
     printf("|                  GOODLUCK ! ! !                       |\n");
     printf("* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- *\n");
 }

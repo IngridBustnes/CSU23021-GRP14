@@ -34,7 +34,6 @@
     * @author Della - Start Of Game, Level 4, Input Handling
     * @author Inrgid - Morse Code, Input Handling 
     */
- */
 @ Entry point to the ASM portion of the program
 main_asm:
 
