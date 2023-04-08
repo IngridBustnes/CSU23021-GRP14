@@ -266,10 +266,13 @@ void progress_level()
 {
     printf("\nLEVEL %d COMPLETED!\n", level_selected);
     stats();
-    printf("MOVING TO LEVEL %d\n", level_selected + 1);
+    if(levels_completed <= 4){
+        printf("MOVING TO LEVEL %d\n", level_selected + 1);
+    }
     levels_completed++;
     correct_answers = 0;
     incorrect_answers = 0;
+    
 }
 
 /**
