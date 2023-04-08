@@ -215,9 +215,9 @@ void stats()
 {
     printf("YOU HAD A TOTAL OF %d CORRECT ANSWERS!\n", correct_answers);
     printf("YOU HAD A TOTAL OF %d INCORRECT ANSWERS!\n", incorrect_answers);
-    double calculation = (double)correct_answers / (double)(correct_answers + incorrect_answers);
+    double calculation = (double)correct_answers / (double)((double)correct_answers + (double)incorrect_answers);
     double percentage = calculation * 100;
-    printf("YOU HAD A SUCCESS RATE OF %d%%", percentage);
+    printf("YOU HAD A SUCCESS RATE OF %f%%\n", percentage);
 }
 
 /*                              MESSAGES                                */
