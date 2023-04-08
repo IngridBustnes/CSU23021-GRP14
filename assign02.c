@@ -19,6 +19,7 @@
 int player_lives = 3;      // Number of lives the player has
 int level_selected = 0;    // Level selected by player
 int correct_answers = 0;   // Number of correct answers the player has entered
+int incorrect_answers = 0; // Number of incorrect answers the player has entered
 int correct_sequences = 5; // Number of correct sequences the player needs to enter to win the game
 char user_input[20];       // Array to store user input
 int length_of_input = 0;   // Length of user input
