@@ -19,7 +19,7 @@
 int player_lives = 3;      // Number of lives the player has
 int level_selected = 0;    // Level selected by player
 int correct_answers = 0;   // Number of correct answers the player has entered
-int incorrect_answers = 0; // Number of incorrect answers the player has entered
+int incorrect_answers = 0;  // Number of incorrect answers the player has entered
 int correct_sequences = 5; // Number of correct sequences the player needs to enter to win the game
 char user_input[20];       // Array to store user input
 int length_of_input = 0;   // Length of user input
@@ -266,7 +266,7 @@ void progress_level()
 {
     printf("\nLEVEL %d COMPLETED!\n", level_selected);
     stats();
-    prinf("MOVING TO LEVEL %d\n", level_selected + 1);
+    printf("MOVING TO LEVEL %d\n", level_selected + 1);
     levels_completed++;
     correct_answers = 0;
     incorrect_answers = 0;
@@ -280,7 +280,7 @@ void progress_level()
 void winner()
 {
     printf("\nLEVEL %d COMPLETED!\n", level_selected);
-    printf("\CONGRATULATIONS! YOU WON!\n");
+    printf("\nCONGRATULATIONS! YOU WON!\n");
     stats();
 }
 
@@ -291,7 +291,7 @@ void winner()
  */
 void loser()
 {
-    printf("\COMMISERATIONS :( YOU LOST!\n");
+    printf("\nCOMMISERATIONS :( YOU LOST!\n");
     stats();
 }
 
@@ -306,7 +306,7 @@ void level_choice()
     printf("\nLevel 1: .----");
     printf("\nLevel 2: ..---");
     printf("\nLevel 3: ...--");
-    printf("\nLevel 4: ....-");
+    printf("\nLevel 4: ....-\n");
 }
 
 /**
@@ -396,6 +396,24 @@ void correct_sequence_level_3_and_4()
     else
     {
         printf("\nMAX LIVES REACHED! NO LIVES GAINED\n");
+    }
+}
+
+/*                                VALIDATE ANSWERS                                      */
+
+/**
+ * @brief Validate input sequence against the correct answer
+ * @author Leah
+ */
+int validate_input_sequence()
+{
+    if (strcmp(user_input, alphabet[input_index].morsecode) == 0)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
     }
 }
 
@@ -742,8 +760,8 @@ int level_3()
         printf("MORSE CODE: %s \n", alphabet[num].morsecode);
         level_3_index = 0;
         return num;
-        return num;
     }
+    return num;
 }
 
 /**
@@ -779,8 +797,8 @@ int level_4()
         printf("WORD: %s \n", alphabet[2].word);
         level_4_index = 0;
         return num;
-        return num;
     }
+    return num;
 }
 
 /**
@@ -864,24 +882,6 @@ void input_handler(int player_input)
         input_entered = 1;
         display_input();
         RGB_update(player_lives);
-    }
-}
-
-/*                                VALIDATE ANSWERS                                      */
-
-/**
- * @brief Validate input sequence against the correct answer
- * @author Leah
- */
-int validate_input_sequence()
-{
-    if (strcmp(user_input, alphabet[input_index].morsecode) == 0)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
     }
 }
 
