@@ -45,7 +45,7 @@ main_asm:
 game_reboot:
     movs    r2, #0
     movs    r6, #1                                              
-    bl      level_choice                                        @ Display level choice
+    bl      welcome_message                                        @ Display level choice
     bl      player_select                                       @ Level selected
  
 level_not_selected:                                             @ Process player input until a valid level is selected

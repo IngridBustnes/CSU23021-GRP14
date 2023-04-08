@@ -264,12 +264,13 @@ void welcome_message()
  */
 void progress_level()
 {
+    levels_completed++;
     printf("\nLEVEL %d COMPLETED!\n", level_selected);
     stats();
-    if(levels_completed <= 4){
+    if(level_selected < 4){
         printf("MOVING TO LEVEL %d\n", level_selected + 1);
+    } else{
     }
-    levels_completed++;
     correct_answers = 0;
     incorrect_answers = 0;
     
@@ -282,9 +283,8 @@ void progress_level()
  */
 void winner()
 {
-    printf("\nLEVEL %d COMPLETED!\n", level_selected);
+    printf("\nYOU HAVE COMPLETED ALL LEVELS!");
     printf("\nCONGRATULATIONS! YOU WON!\n");
-    stats();
 }
 
 /**
@@ -295,7 +295,6 @@ void winner()
 void loser()
 {
     printf("\nCOMMISERATIONS :( YOU LOST!\n");
-    stats();
 }
 
 /**
@@ -333,6 +332,7 @@ void wrong_sequence()
     printf("\nPLAYER ALPHANUMERICAL INPUT: ");
     morseToAlphaNum(user_input);
     printf("\nCORRECT SEQUENCE: %s", alphabet[input_index].morsecode);
+    incorrect_answers++;
     player_lives--;
     printf("\nWRONG SEQUENCE! LOST A LIFE");
     printf("\n%d LIVES LEFT\n", player_lives);
@@ -354,7 +354,7 @@ void correct_sequence()
     if (player_lives < 3)
     {
         player_lives++;
-        printf("\nGAINED A LIFE! PLAYER LIVES: %d", player_lives);
+        printf("\nGAINED A LIFE! PLAYER LIVES: %d\n", player_lives);
     }
     else
     {
@@ -373,6 +373,7 @@ void wrong_sequence_level_3_and_4()
     printf("\nPLAYER ALPHANUMERICAL INPUT:");
     morseToAlphaNum(user_input);
     printf("\nCORRECT SEQUENCE: %s", alphabet[input_index].morsecode);
+    incorrect_answers++;
     player_lives--;
     printf("\nWRONG SEQUENCE! LOST A LIFE");
     printf("\n%d LIVES LEFT\n", player_lives);
@@ -817,6 +818,7 @@ int progress_next()
     if (player_lives == 0)
     {
         printf("\nGAME OVER\n");
+        stats();
         return 2;
     }
     if (levels_completed == 4)
