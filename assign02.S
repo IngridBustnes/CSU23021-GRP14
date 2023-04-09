@@ -27,7 +27,13 @@
 .equ    GPIO_ISR_OFFSET, 0x74                                   @ GPIO is int #13 (vector table entry 29)
 .equ    ALRM_ISR_OFFSET, 0x40                                   @ ALARM0 is int #0 (vector table entry 16)
 
-
+/**
+    * @author Faith - Progression, Timing and Interrupts 
+    * @author Leah - Input Handling and Interrupts
+    * @auhtor Martha - Level 1 - 3, Input Handling
+    * @author Della - Start Of Game, Level 4, Input Handling
+    * @author Inrgid - Morse Code, Input Handling 
+    */
 @ Entry point to the ASM portion of the program
 main_asm:
 
@@ -39,7 +45,7 @@ main_asm:
 game_reboot:
     movs    r2, #0
     movs    r6, #1                                              
-    bl      level_choice                                        @ Display level choice
+    bl      welcome_message                                        @ Display level choice
     bl      player_select                                       @ Level selected
  
 level_not_selected:                                             @ Process player input until a valid level is selected
@@ -62,6 +68,8 @@ begin:                                                          @ Initialize inp
     beq     level3
     cmp     r0, #4
     beq     level4
+    cmp     r0, #5
+    beq     end
 
 level1:
     bl      level_1                                             @ Display level 1 question                         
@@ -76,7 +84,7 @@ level3:
     b       level_chosen
 
 level4:
-    bl      level_4                                              @ Display level 4 question
+    bl      level_4                                             @ Display level 4 question
 
 level_chosen:                                                   @ Process player input for selected level
     movs    r4, #3                                              @ Dot or dash
@@ -95,12 +103,15 @@ no_input_sequence1:
     cmp     r0, #1
     beq     level_completed
     cmp     r0, #2
-    beq     game_over
-    cmp     r0, #3
-    beq     game_won
-    b       begin                                               @ Loop back to begin if input is not completed
+    beq     game_reboot
+    b       begin
+    @ beq     game_over
+    @ cmp     r0, #3
+    @ beq     game_won
+    @ b       begin                                               @ Loop back to begin if input is not completed
 
 end:
+    bl        game_won
 
 level_completed:
     bl      get_level
